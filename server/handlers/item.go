@@ -8,7 +8,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// CreateBook godoc
+// CreateItem godoc
 // @Summary      Create item
 // @Description  Create new item endpoint
 // @Tags         Item
@@ -16,7 +16,7 @@ import (
 // @Produce      json
 // @Param        params body httpmodels.CreateItemRequest true "request body"
 // @Success      201
-// @Failure      400  {object}  httpmodels.Error "[INCORRECT_REQUEST_BODY], [VALIDATION_FAILED]"
+// @Failure      400  {object}  httpmodels.Error "Message: INCORRECT_REQUEST_BODY, VALIDATION_FAILED"
 // @Router       /item [post]
 func (h *Handlers) CreateItem(c echo.Context) error {
 	h.log.Info(c.Request().Method, c.Request().URL)
@@ -38,6 +38,14 @@ func (h *Handlers) CreateItem(c echo.Context) error {
 	return c.NoContent(http.StatusCreated)
 }
 
+// GetAllItems godoc
+// @Summary      Returns all items
+// @Description  Returns all items of current user user
+// @Tags         Item
+// @Accept       json
+// @Produce      json
+// @Success      200
+// @Router       /item/all [get]
 func (h *Handlers) GetAllItems(c echo.Context) error {
 	h.log.Info(c.Request().Method, c.Request().URL)
 
@@ -52,6 +60,16 @@ func (h *Handlers) GetAllItems(c echo.Context) error {
 	return c.JSON(http.StatusOK, resp)
 }
 
+// GetItem godoc
+// @Summary      Returns item
+// @Description  Returns item by id
+// @Tags         Item
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "Item ID"
+// @Success      200
+// @Failure      400  {object}  httpmodels.Error "Message: INCORRECT_PARAMETER"
+// @Router       /item/{id} [get]
 func (h *Handlers) GetItem(c echo.Context) error {
 	h.log.Info(c.Request().Method, c.Request().URL)
 	id, err := strconv.Atoi(c.Param("id"))
@@ -72,6 +90,16 @@ func (h *Handlers) GetItem(c echo.Context) error {
 	return c.JSON(http.StatusOK, resp)
 }
 
+// DeleteItem godoc
+// @Summary      Delete item
+// @Description  Delete item by id
+// @Tags         Item
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "Item ID"
+// @Success      200
+// @Failure      400  {object}  httpmodels.Error "Message: INCORRECT_PARAMETER"
+// @Router       /item/{id} [delete]
 func (h *Handlers) DeleteItem(c echo.Context) error {
 	h.log.Info(c.Request().Method, c.Request().URL)
 	id, err := strconv.Atoi(c.Param("id"))
@@ -83,6 +111,17 @@ func (h *Handlers) DeleteItem(c echo.Context) error {
 	return c.NoContent(http.StatusAccepted)
 }
 
+// UpdateItem godoc
+// @Summary Update item
+// @Description Update item by ID
+// @Tags Item
+// @Accept json
+// @Produce json
+// @Param id path int true "Item ID"
+// @Param body body httpmodels.CreateItemRequest true "request body"
+// @Success 200
+// @Failure 400 {object} httpmodels.Error "Message: INCORRECT_REQUEST_BODY, VALIDATION_FAILED, INCAORRECT_PARAMETER"
+// @Router /item/{id} [put]
 func (h *Handlers) UpdateItem(c echo.Context) error {
 	h.log.Info(c.Request().Method, c.Request().URL)
 	id, err := strconv.Atoi(c.Param("id"))

@@ -7,7 +7,7 @@ import (
 	"hillel_auction/server/handlers"
 	"log"
 
-	"github.com/swaggo/swag/example/basic/docs"
+	"hillel_auction/docs"
 )
 
 // @title           AuthServiceAPI
