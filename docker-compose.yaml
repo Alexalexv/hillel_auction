@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  backend-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      PORT: :1111
+      LOG_LEVEL: info
+    ports:
+      - "1111:1111"

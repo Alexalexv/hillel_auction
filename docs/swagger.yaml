@@ -1,0 +1,144 @@
+basePath: /
+definitions:
+  httpmodels.CreateItemRequest:
+    properties:
+      Description:
+        type: string
+      MinBuyPrice:
+        type: integer
+      Name:
+        type: string
+      Pictures:
+        items:
+          type: string
+        type: array
+      SoldPrice:
+        type: integer
+    required:
+    - Description
+    - MinBuyPrice
+    - Name
+    - Pictures
+    - SoldPrice
+    type: object
+  httpmodels.Error:
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: My first project.
+  termsOfService: http://swagger.io/terms/
+  title: AuthServiceAPI
+  version: "1.0"
+paths:
+  /item:
+    post:
+      consumes:
+      - application/json
+      description: Create new item endpoint
+      parameters:
+      - description: request body
+        in: body
+        name: params
+        required: true
+        schema:
+          $ref: '#/definitions/httpmodels.CreateItemRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: 'Message: INCORRECT_REQUEST_BODY, VALIDATION_FAILED'
+          schema:
+            $ref: '#/definitions/httpmodels.Error'
+      summary: Create item
+      tags:
+      - Item
+  /item/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete item by id
+      parameters:
+      - description: Item ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Delete item
+      tags:
+      - Item
+    get:
+      consumes:
+      - application/json
+      description: Returns item by id
+      parameters:
+      - description: Item ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: 'Message: INCORRECT_PARAMETER'
+          schema:
+            $ref: '#/definitions/httpmodels.Error'
+      summary: Returns item
+      tags:
+      - Item
+    put:
+      consumes:
+      - application/json
+      description: Update item by ID
+      parameters:
+      - description: Item ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: request body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/httpmodels.CreateItemRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: 'Message: INCORRECT_REQUEST_BODY, VALIDATION_FAILED, INCAORRECT_PARAMETER'
+          schema:
+            $ref: '#/definitions/httpmodels.Error'
+      summary: Update item
+      tags:
+      - Item
+  /item/all:
+    get:
+      consumes:
+      - application/json
+      description: Returns all items of current user user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Returns all items
+      tags:
+      - Item
+swagger: "2.0"
