@@ -16,11 +16,11 @@ type Server struct {
 func NewServer(cfg *config.Configuration, handlers *handlers.Handlers) *Server {
 	e := echo.New()
 
-	e.POST("/item", handlers.CreateItem)
-	e.GET("/item/all", handlers.GetAllItems)
-	e.GET("/item/:id", handlers.GetItem)
-	e.DELETE("/item/:id", handlers.DeleteItem)
-	e.PUT("/item/:id", handlers.UpdateItem)
+	e.POST("/items", handlers.CreateItem)
+	e.GET("/items/all", handlers.GetAllItems)
+	e.GET("/items/:id", handlers.GetItem)
+	e.DELETE("/items/:id", handlers.DeleteItem)
+	e.PUT("/items/:id", handlers.UpdateItem)
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 

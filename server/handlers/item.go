@@ -17,7 +17,7 @@ import (
 // @Param        params body httpmodels.CreateItemRequest true "request body"
 // @Success      201
 // @Failure      400  {object}  httpmodels.Error "Message: INCORRECT_REQUEST_BODY, VALIDATION_FAILED"
-// @Router       /item [post]
+// @Router       /items [post]
 func (h *Handlers) CreateItem(c echo.Context) error {
 	h.log.Info(c.Request().Method, c.Request().URL)
 
@@ -45,7 +45,7 @@ func (h *Handlers) CreateItem(c echo.Context) error {
 // @Accept       json
 // @Produce      json
 // @Success      200
-// @Router       /item/all [get]
+// @Router       /items/all [get]
 func (h *Handlers) GetAllItems(c echo.Context) error {
 	h.log.Info(c.Request().Method, c.Request().URL)
 
@@ -69,7 +69,7 @@ func (h *Handlers) GetAllItems(c echo.Context) error {
 // @Param        id   path      int  true  "Item ID"
 // @Success      200
 // @Failure      400  {object}  httpmodels.Error "Message: INCORRECT_PARAMETER"
-// @Router       /item/{id} [get]
+// @Router       /items/{id} [get]
 func (h *Handlers) GetItem(c echo.Context) error {
 	h.log.Info(c.Request().Method, c.Request().URL)
 	id, err := strconv.Atoi(c.Param("id"))
@@ -99,7 +99,7 @@ func (h *Handlers) GetItem(c echo.Context) error {
 // @Param        id   path      int  true  "Item ID"
 // @Success      200
 // @Failure      400  {object}  httpmodels.Error "Message: INCORRECT_PARAMETER"
-// @Router       /item/{id} [delete]
+// @Router       /items/{id} [delete]
 func (h *Handlers) DeleteItem(c echo.Context) error {
 	h.log.Info(c.Request().Method, c.Request().URL)
 	id, err := strconv.Atoi(c.Param("id"))
@@ -121,7 +121,7 @@ func (h *Handlers) DeleteItem(c echo.Context) error {
 // @Param body body httpmodels.CreateItemRequest true "request body"
 // @Success 200
 // @Failure 400 {object} httpmodels.Error "Message: INCORRECT_REQUEST_BODY, VALIDATION_FAILED, INCAORRECT_PARAMETER"
-// @Router /item/{id} [put]
+// @Router /items/{id} [put]
 func (h *Handlers) UpdateItem(c echo.Context) error {
 	h.log.Info(c.Request().Method, c.Request().URL)
 	id, err := strconv.Atoi(c.Param("id"))

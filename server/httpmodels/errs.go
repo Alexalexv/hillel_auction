@@ -23,7 +23,7 @@ func ValidationFailedErr(e error) Error {
 
 func IncorrectParameter(e error) Error {
 	return Error{
-		Code:    "INCAORRECT_PARAMETER",
+		Code:    "INCORRECT_PARAMETER",
 		Message: e.Error(),
 	}
 
