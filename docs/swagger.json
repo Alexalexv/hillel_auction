@@ -9,7 +9,7 @@
     },
     "basePath": "/",
     "paths": {
-        "/item": {
+        "/items": {
             "post": {
                 "description": "Create new item endpoint",
                 "consumes": [
@@ -46,7 +46,7 @@
                 }
             }
         },
-        "/item/all": {
+        "/items/all": {
             "get": {
                 "description": "Returns all items of current user user",
                 "consumes": [
@@ -66,7 +66,7 @@
                 }
             }
         },
-        "/item/{id}": {
+        "/items/{id}": {
             "get": {
                 "description": "Returns item by id",
                 "consumes": [
@@ -166,6 +166,150 @@
                 "responses": {
                     "200": {
                         "description": "OK"
+                    },
+                    "400": {
+                        "description": "Message: INCORRECT_PARAMETER",
+                        "schema": {
+                            "$ref": "#/definitions/httpmodels.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/refresh": {
+            "post": {
+                "description": "Refresh jwt token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Refresh jwt token",
+                "parameters": [
+                    {
+                        "description": "request body",
+                        "name": "params",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/httpmodels.RefreshJWTRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/httpmodels.RefreshJWTResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "[INCORRECT_REQUEST_BODY]",
+                        "schema": {
+                            "$ref": "#/definitions/httpmodels.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "[INTERNAL_SERVER_ERROR]",
+                        "schema": {
+                            "$ref": "#/definitions/httpmodels.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/signin": {
+            "post": {
+                "description": "Sign in user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Sign in user",
+                "parameters": [
+                    {
+                        "description": "request body",
+                        "name": "params",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/httpmodels.SignInRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/httpmodels.SignInResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "[INCORRECT_REQUEST_BODY]",
+                        "schema": {
+                            "$ref": "#/definitions/httpmodels.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "[INTERNAL_SERVER_ERROR]",
+                        "schema": {
+                            "$ref": "#/definitions/httpmodels.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/signup": {
+            "post": {
+                "description": "Sign up user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Sign up user",
+                "parameters": [
+                    {
+                        "description": "request body",
+                        "name": "params",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/httpmodels.SignUpRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/httpmodels.SignUpResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "[INCORRECT_REQUEST_BODY]",
+                        "schema": {
+                            "$ref": "#/definitions/httpmodels.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "[INTERNAL_SERVER_ERROR]",
+                        "schema": {
+                            "$ref": "#/definitions/httpmodels.Error"
+                        }
                     }
                 }
             }
@@ -210,6 +354,69 @@
                 },
                 "message": {
                     "type": "string"
+                }
+            }
+        },
+        "httpmodels.RefreshJWTRequest": {
+            "type": "object",
+            "properties": {
+                "refreshToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "httpmodels.RefreshJWTResponse": {
+            "type": "object",
+            "properties": {
+                "accessToken": {
+                    "type": "string"
+                },
+                "refreshToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "httpmodels.SignInRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "httpmodels.SignInResponse": {
+            "type": "object",
+            "properties": {
+                "accessToken": {
+                    "type": "string"
+                },
+                "refreshToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "httpmodels.SignUpRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "httpmodels.SignUpResponse": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
                 }
             }
         }

@@ -7,8 +7,13 @@ import (
 )
 
 type Configuration struct {
-	Port     string `env:"PORT" envDefault:":5656"`
-	LogLevel string `env:"LOG_LEVEL" envDefault:"INFO"`
+	Port       string `env:"PORT" envDefault:":5656"`
+	LogLevel   string `env:"LOG_LEVEL" envDefault:"INFO"`
+	DBHost     string `env:"POSTGRES_HOST"`
+	DBPort     string `env:"POSTGRES_PORT"`
+	DBUser     string `env:"POSTGRES_USER"`
+	DBPassword string `env:"POSTGRES_PASSWORD"`
+	DBName     string `env:"POSTGRES_DB"`
 }
 
 func NewConfiguration() (*Configuration, error) {

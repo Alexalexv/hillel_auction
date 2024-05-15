@@ -28,6 +28,46 @@ definitions:
       message:
         type: string
     type: object
+  httpmodels.RefreshJWTRequest:
+    properties:
+      refreshToken:
+        type: string
+    type: object
+  httpmodels.RefreshJWTResponse:
+    properties:
+      accessToken:
+        type: string
+      refreshToken:
+        type: string
+    type: object
+  httpmodels.SignInRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  httpmodels.SignInResponse:
+    properties:
+      accessToken:
+        type: string
+      refreshToken:
+        type: string
+    type: object
+  httpmodels.SignUpRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  httpmodels.SignUpResponse:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+    type: object
 info:
   contact: {}
   description: My first project.
@@ -35,7 +75,7 @@ info:
   title: AuthServiceAPI
   version: "1.0"
 paths:
-  /item:
+  /items:
     post:
       consumes:
       - application/json
@@ -59,7 +99,7 @@ paths:
       summary: Create item
       tags:
       - Item
-  /item/{id}:
+  /items/{id}:
     delete:
       consumes:
       - application/json
@@ -75,6 +115,10 @@ paths:
       responses:
         "200":
           description: OK
+        "400":
+          description: 'Message: INCORRECT_PARAMETER'
+          schema:
+            $ref: '#/definitions/httpmodels.Error'
       summary: Delete item
       tags:
       - Item
@@ -128,7 +172,7 @@ paths:
       summary: Update item
       tags:
       - Item
-  /item/all:
+  /items/all:
     get:
       consumes:
       - application/json
@@ -141,4 +185,94 @@ paths:
       summary: Returns all items
       tags:
       - Item
+  /refresh:
+    post:
+      consumes:
+      - application/json
+      description: Refresh jwt token
+      parameters:
+      - description: request body
+        in: body
+        name: params
+        required: true
+        schema:
+          $ref: '#/definitions/httpmodels.RefreshJWTRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/httpmodels.RefreshJWTResponse'
+        "400":
+          description: '[INCORRECT_REQUEST_BODY]'
+          schema:
+            $ref: '#/definitions/httpmodels.Error'
+        "500":
+          description: '[INTERNAL_SERVER_ERROR]'
+          schema:
+            $ref: '#/definitions/httpmodels.Error'
+      summary: Refresh jwt token
+      tags:
+      - Auth
+  /signin:
+    post:
+      consumes:
+      - application/json
+      description: Sign in user
+      parameters:
+      - description: request body
+        in: body
+        name: params
+        required: true
+        schema:
+          $ref: '#/definitions/httpmodels.SignInRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/httpmodels.SignInResponse'
+        "400":
+          description: '[INCORRECT_REQUEST_BODY]'
+          schema:
+            $ref: '#/definitions/httpmodels.Error'
+        "500":
+          description: '[INTERNAL_SERVER_ERROR]'
+          schema:
+            $ref: '#/definitions/httpmodels.Error'
+      summary: Sign in user
+      tags:
+      - Auth
+  /signup:
+    post:
+      consumes:
+      - application/json
+      description: Sign up user
+      parameters:
+      - description: request body
+        in: body
+        name: params
+        required: true
+        schema:
+          $ref: '#/definitions/httpmodels.SignUpRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/httpmodels.SignUpResponse'
+        "400":
+          description: '[INCORRECT_REQUEST_BODY]'
+          schema:
+            $ref: '#/definitions/httpmodels.Error'
+        "500":
+          description: '[INTERNAL_SERVER_ERROR]'
+          schema:
+            $ref: '#/definitions/httpmodels.Error'
+      summary: Sign up user
+      tags:
+      - Auth
 swagger: "2.0"

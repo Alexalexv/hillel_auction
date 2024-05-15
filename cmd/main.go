@@ -2,9 +2,12 @@ package main
 
 import (
 	"hillel_auction/config"
+	"hillel_auction/db"
 	"hillel_auction/logger"
+	"hillel_auction/repository"
 	"hillel_auction/server"
 	"hillel_auction/server/handlers"
+	"hillel_auction/services"
 	"log"
 
 	"hillel_auction/docs"
@@ -25,7 +28,18 @@ func main() {
 	}
 
 	l := logger.NewLogger(cfg)
-	h := handlers.NewHandlers(l)
+
+	database := db.New(l, cfg)
+	err = database.Connect()
+	if err != nil {
+		l.Fatal("failed to connect to the database", err)
+	}
+
+	userRepos := repository.NewUsersRepository(database, l)
+
+	userService := services.NewUserService(l, userRepos)
+
+	h := handlers.NewHandlers(l, userService)
 
 	s := server.NewServer(cfg, h)
 	err = s.Start()

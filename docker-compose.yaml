@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+
   backend-api:
     build:
       context: .
@@ -11,3 +12,19 @@ services:
       LOG_LEVEL: info
     ports:
       - "1111:1111"
+
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: sasha
+      POSTGRES_PASSWORD: 12345678
+      POSTGRES_DB: auction
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
+

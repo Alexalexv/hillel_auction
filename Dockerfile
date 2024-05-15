@@ -58,6 +58,11 @@ COPY --from=builder /app/main .
 
 ENV PORT=:1111
 ENV LOG_LEVEL=Info
+ENV POSTGRES_HOST=localhost
+ENV POSTGRES_PORT=5432
+ENV POSTGRES_USER=sasha
+ENV POSTGRES_PASSWORD=12345678
+ENV POSTGRES_DB=auction
 
 # Command to run the executable
 CMD ["./main"]

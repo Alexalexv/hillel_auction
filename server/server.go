@@ -3,6 +3,7 @@ package server
 import (
 	"hillel_auction/config"
 	"hillel_auction/server/handlers"
+	"hillel_auction/server/midlewares"
 
 	"github.com/labstack/echo/v4"
 	echoSwagger "github.com/swaggo/echo-swagger"
@@ -16,11 +17,17 @@ type Server struct {
 func NewServer(cfg *config.Configuration, handlers *handlers.Handlers) *Server {
 	e := echo.New()
 
-	e.POST("/items", handlers.CreateItem)
-	e.GET("/items/all", handlers.GetAllItems)
-	e.GET("/items/:id", handlers.GetItem)
-	e.DELETE("/items/:id", handlers.DeleteItem)
-	e.PUT("/items/:id", handlers.UpdateItem)
+	e.POST("/signup", handlers.SighUp)
+	e.POST("/signin", handlers.SignIn)
+	e.POST("/refresh", handlers.RefreshJWT)
+
+	authGroup := e.Group("", midlewares.Authorization)
+
+	authGroup.POST("/items", handlers.CreateItem)
+	authGroup.GET("/items/all", handlers.GetAllItems)
+	authGroup.GET("/items/:id", handlers.GetItem)
+	authGroup.DELETE("/items/:id", handlers.DeleteItem)
+	authGroup.PUT("/items/:id", handlers.UpdateItem)
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
