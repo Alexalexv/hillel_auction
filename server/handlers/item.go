@@ -12,6 +12,7 @@ import (
 // @Summary      Create item
 // @Description  Create new item endpoint
 // @Tags         Item
+// @Security     ApiKeyAuth
 // @Accept       json
 // @Produce      json
 // @Param        params body httpmodels.CreateItemRequest true "request body"
@@ -42,6 +43,7 @@ func (h *Handlers) CreateItem(c echo.Context) error {
 // @Summary      Returns all items
 // @Description  Returns all items of current user user
 // @Tags         Item
+// @Security     ApiKeyAuth
 // @Accept       json
 // @Produce      json
 // @Success      200
@@ -64,6 +66,7 @@ func (h *Handlers) GetAllItems(c echo.Context) error {
 // @Summary      Returns item
 // @Description  Returns item by id
 // @Tags         Item
+// @Security     ApiKeyAuth
 // @Accept       json
 // @Produce      json
 // @Param        id   path      int  true  "Item ID"
@@ -94,6 +97,7 @@ func (h *Handlers) GetItem(c echo.Context) error {
 // @Summary      Delete item
 // @Description  Delete item by id
 // @Tags         Item
+// @Security     ApiKeyAuth
 // @Accept       json
 // @Produce      json
 // @Param        id   path      int  true  "Item ID"
@@ -115,6 +119,7 @@ func (h *Handlers) DeleteItem(c echo.Context) error {
 // @Summary Update item
 // @Description Update item by ID
 // @Tags Item
+// @Security     ApiKeyAuth
 // @Accept json
 // @Produce json
 // @Param id path int true "Item ID"
