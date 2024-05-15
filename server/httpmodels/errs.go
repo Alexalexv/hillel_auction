@@ -28,3 +28,9 @@ func IncorrectParameter(e error) Error {
 	}
 
 }
+func InternalServerErrorErr(e error) Error {
+	return Error{
+		Code:    "INTERNAL_ERROR",
+		Message: e.Error(),
+	}
+}

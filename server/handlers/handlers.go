@@ -1,13 +1,18 @@
 package handlers
 
-import "hillel_auction/logger"
+import (
+	"hillel_auction/logger"
+	"hillel_auction/services"
+)
 
 type Handlers struct {
-	log *logger.Logger
+	log         *logger.Logger
+	userService *services.UserService
 }
 
-func NewHandlers(log *logger.Logger) *Handlers {
+func NewHandlers(log *logger.Logger, userService *services.UserService) *Handlers {
 	return &Handlers{
-		log: log,
+		log:         log,
+		userService: userService,
 	}
 }
